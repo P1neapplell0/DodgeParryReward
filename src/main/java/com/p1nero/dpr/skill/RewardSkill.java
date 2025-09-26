@@ -26,8 +26,12 @@ import java.util.function.Supplier;
 
 public abstract class RewardSkill extends Skill {
 
-    protected int effectDuration;
-    protected int effectAmplifier;
+    protected int duration;
+    protected int amplifier;
+    protected boolean ambient;
+    protected boolean visible;
+    protected boolean showIcon = true;
+
     @Nullable
     protected Supplier<MobEffect> mobEffectSupplier;
     protected int delay;
@@ -43,8 +47,8 @@ public abstract class RewardSkill extends Skill {
 
     public RewardSkill(Builder builder) {
         super(builder);
-        effectDuration = builder.effectDuration;
-        effectAmplifier = builder.effectAmplifier;
+        duration = builder.effectDuration;
+        amplifier = builder.effectAmplifier;
         mobEffectSupplier = builder.mobEffectSupplier;
         delay = builder.delay;
         playerPatchConsumer = builder.playerPatchConsumer;
@@ -55,11 +59,20 @@ public abstract class RewardSkill extends Skill {
     @Override
     public void setParams(CompoundTag parameters) {
         super.setParams(parameters);
-        if (parameters.contains("effect_duration")) {
-            effectDuration = parameters.getInt("effect_duration");
+        if (parameters.contains("duration")) {
+            duration = parameters.getInt("duration");
         }
-        if (parameters.contains("effect_amplifier")) {
-            effectAmplifier = parameters.getInt("effect_amplifier");
+        if (parameters.contains("amplifier")) {
+            amplifier = parameters.getInt("amplifier");
+        }
+        if (parameters.contains("ambient")) {
+            ambient = parameters.getBoolean("ambient");
+        }
+        if (parameters.contains("visible")) {
+            visible = parameters.getBoolean("visible");
+        }
+        if (parameters.contains("showIcon")) {
+            showIcon = parameters.getBoolean("showIcon");
         }
     }
 
@@ -80,7 +93,7 @@ public abstract class RewardSkill extends Skill {
     public void apply(SkillContainer container) {
         Player player = container.getExecutor().getOriginal();
         if(delay > 0) {
-            if(player instanceof ServerPlayer serverPlayer) {
+            if(player instanceof ServerPlayer) {
                 container.getDataManager().setDataSync(DPRDatakeys.DELAY_TIMER.get(), delay);
             }
         } else {
@@ -92,10 +105,10 @@ public abstract class RewardSkill extends Skill {
             MobEffect mobEffect = mobEffectSupplier.get();
             MobEffectInstance instance = player.getEffect(mobEffect);
             if(instance != null) {
-                ((MobEffectInstanceAccessor) instance).setDuration(effectDuration);
+                ((MobEffectInstanceAccessor) instance).setDuration(duration);
                 serverPlayer.connection.send(new ClientboundUpdateMobEffectPacket(serverPlayer.getId(), instance));
             }
-            player.addEffect(new MobEffectInstance(mobEffect, effectDuration, effectAmplifier));
+            player.addEffect(new MobEffectInstance(mobEffect, duration, amplifier, ambient, visible, showIcon));
 
         }
     }
@@ -122,11 +135,11 @@ public abstract class RewardSkill extends Skill {
     @OnlyIn(Dist.CLIENT)
     @Override
     public List<Object> getTooltipArgsOfScreen(List<Object> list) {
-        list.add(effectAmplifier);
+        list.add(amplifier);
         if (mobEffectSupplier != null) {
             list.add(mobEffectSupplier.get().getDisplayName());
         }
-        list.add(effectDuration);
+        list.add(duration);
         return list;
     }
 

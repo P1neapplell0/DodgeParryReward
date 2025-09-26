@@ -1,4 +1,7 @@
 {
-  "effect_duration": 200,
-  "effect_amplifier": 1
+  "duration": 200,
+  "amplifier": 1,
+  "ambient": false,
+  "visible": false,
+  "showIcon": true
 }
