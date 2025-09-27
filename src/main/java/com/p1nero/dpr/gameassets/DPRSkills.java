@@ -98,7 +98,7 @@ public class DPRSkills {
         HEAL1 = registryWorker.build("heal1", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114508"))
                 .setsKillTexture(ResourceLocation.withDefaultNamespace("textures/mob_effect/regeneration.png"))
-                .setPlayerPatchConsumer((playerPatch -> {
+                .setWhenExecute((playerPatch -> {
                     if(!playerPatch.isLogicalClient()){
                         Player player = playerPatch.getOriginal();
                         player.heal(2);
@@ -107,7 +107,7 @@ public class DPRSkills {
         HEAL2 = registryWorker.build("heal2", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114509"))
                 .setsKillTexture(ResourceLocation.withDefaultNamespace("textures/mob_effect/regeneration.png"))
-                .setPlayerPatchConsumer((playerPatch -> {
+                .setWhenExecute((playerPatch -> {
                     if(!playerPatch.isLogicalClient()){
                         Player player = playerPatch.getOriginal();
                         player.heal(4);
@@ -116,7 +116,7 @@ public class DPRSkills {
         HEAL3 = registryWorker.build("heal3", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114510"))
                 .setsKillTexture(ResourceLocation.withDefaultNamespace("textures/mob_effect/regeneration.png"))
-                .setPlayerPatchConsumer((playerPatch -> {
+                .setWhenExecute((playerPatch -> {
                     if(!playerPatch.isLogicalClient()){
                         Player player = playerPatch.getOriginal();
                         player.heal(6);
@@ -125,7 +125,7 @@ public class DPRSkills {
         HEAL4 = registryWorker.build("heal4", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114511"))
                 .setsKillTexture(ResourceLocation.withDefaultNamespace("textures/mob_effect/regeneration.png"))
-                .setPlayerPatchConsumer((playerPatch -> {
+                .setWhenExecute((playerPatch -> {
                     if(!playerPatch.isLogicalClient()){
                         Player player = playerPatch.getOriginal();
                         player.heal(8);
@@ -214,22 +214,22 @@ public class DPRSkills {
         STAMINA1 = registryWorker.build("stamina1", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                         .setsKillTexture(ResourceLocation.fromNamespaceAndPath(DodgeParryRewardMod.MOD_ID, "textures/mob_effect/stamina_boost.png"))
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114528"))
-                .setPlayerPatchConsumer(playerPatch -> playerPatch.setStaminaRegenAwaitTicks(0)));
+                .setWhenExecute(playerPatch -> playerPatch.setStamina(playerPatch.getStamina() + 1), 2));
         STAMINA2 = registryWorker.build("stamina2", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114529"))
-                .setPlayerPatchConsumer(playerPatch -> playerPatch.setStaminaRegenAwaitTicks(0))
+                .setWhenExecute(playerPatch -> playerPatch.setStamina(playerPatch.getStamina() + 1), 2)
                 .setMobEffectSupplier(DPRMobEffects.STAMINA_BOOST)
                 .setEffectAmplifier(0)
                 .setEffectDuration(200));
         STAMINA3 = registryWorker.build("stamina3", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114530"))
-                .setPlayerPatchConsumer(playerPatch -> playerPatch.setStaminaRegenAwaitTicks(0))
+                .setWhenExecute(playerPatch -> playerPatch.setStamina(playerPatch.getStamina() + 2), 2)
                 .setMobEffectSupplier(DPRMobEffects.STAMINA_BOOST)
                 .setEffectAmplifier(1)
                 .setEffectDuration(200));
         STAMINA4 = registryWorker.build("stamina4", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114531"))
-                .setPlayerPatchConsumer(playerPatch -> playerPatch.setStaminaRegenAwaitTicks(0))
+                .setWhenExecute(playerPatch -> playerPatch.setStamina(playerPatch.getStamina() + 3), 2)
                 .setMobEffectSupplier(DPRMobEffects.STAMINA_BOOST)
                 .setEffectAmplifier(2)
                 .setEffectDuration(400));

@@ -3,6 +3,7 @@ package com.p1nero.dpr.skill;
 import com.p1nero.dpr.gameassets.DPRDatakeys;
 import com.p1nero.dpr.mixin.MobEffectInstanceAccessor;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -137,7 +138,7 @@ public abstract class RewardSkill extends Skill {
     public List<Object> getTooltipArgsOfScreen(List<Object> list) {
         list.add(amplifier);
         if (mobEffectSupplier != null) {
-            list.add(mobEffectSupplier.get().getDisplayName());
+            list.add(mobEffectSupplier.get().getDisplayName().copy().withStyle(Style.EMPTY.withColor(mobEffectSupplier.get().getColor()).withBold(true)));
         }
         list.add(duration);
         return list;
@@ -172,13 +173,14 @@ public abstract class RewardSkill extends Skill {
             return this;
         }
 
-        public Builder setDelay(int delay) {
-            this.delay = delay;
+        public Builder setWhenExecute(Consumer<PlayerPatch<?>> playerPatchConsumer) {
+            this.playerPatchConsumer = playerPatchConsumer;
             return this;
         }
 
-        public Builder setPlayerPatchConsumer(Consumer<PlayerPatch<?>> playerPatchConsumer) {
+        public Builder setWhenExecute(Consumer<PlayerPatch<?>> playerPatchConsumer, int delay) {
             this.playerPatchConsumer = playerPatchConsumer;
+            this.delay = delay;
             return this;
         }
 
