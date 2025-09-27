@@ -38,7 +38,7 @@ public abstract class RewardSkill extends Skill {
     protected int delay;
     @Nullable
     protected Consumer<PlayerPatch<?>> playerPatchConsumer;
-    protected final UUID EVENT_UUID;
+    protected final UUID eventUuid;
     protected final ResourceLocation sKillTexture;
     protected ResourceLocation effectTexture;
 
@@ -54,7 +54,7 @@ public abstract class RewardSkill extends Skill {
         delay = builder.delay;
         playerPatchConsumer = builder.playerPatchConsumer;
         sKillTexture = builder.sKillTexture;
-        EVENT_UUID = builder.uuid;
+        eventUuid = builder.uuid;
     }
 
     @Override

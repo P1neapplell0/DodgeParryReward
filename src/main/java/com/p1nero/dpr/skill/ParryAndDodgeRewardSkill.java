@@ -12,12 +12,12 @@ public class ParryAndDodgeRewardSkill extends RewardSkill{
     public void onInitiate(SkillContainer container) {
         super.onInitiate(container);
         PlayerEventListener listener = container.getExecutor().getEventListener();
-        listener.addEventListener(PlayerEventListener.EventType.TAKE_DAMAGE_EVENT_ATTACK, EVENT_UUID, (event) -> {
+        listener.addEventListener(PlayerEventListener.EventType.TAKE_DAMAGE_EVENT_ATTACK, eventUuid, (event) -> {
             if(event.isParried()) {
                 apply(container);
             }
         });
-        listener.addEventListener(PlayerEventListener.EventType.DODGE_SUCCESS_EVENT, EVENT_UUID, (event) -> {
+        listener.addEventListener(PlayerEventListener.EventType.DODGE_SUCCESS_EVENT, eventUuid, (event) -> {
             apply(container);
         });
     }
@@ -26,7 +26,7 @@ public class ParryAndDodgeRewardSkill extends RewardSkill{
     public void onRemoved(SkillContainer container) {
         super.onRemoved(container);
         PlayerEventListener listener = container.getExecutor().getEventListener();
-        listener.removeListener(PlayerEventListener.EventType.TAKE_DAMAGE_EVENT_ATTACK, EVENT_UUID);
-        listener.removeListener(PlayerEventListener.EventType.DODGE_SUCCESS_EVENT, EVENT_UUID);
+        listener.removeListener(PlayerEventListener.EventType.TAKE_DAMAGE_EVENT_ATTACK, eventUuid);
+        listener.removeListener(PlayerEventListener.EventType.DODGE_SUCCESS_EVENT, eventUuid);
     }
 }
