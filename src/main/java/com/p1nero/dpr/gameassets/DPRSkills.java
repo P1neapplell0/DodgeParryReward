@@ -2,6 +2,7 @@ package com.p1nero.dpr.gameassets;
 
 import com.p1nero.dpr.DodgeParryRewardMod;
 import com.p1nero.dpr.mob_effect.DPRMobEffects;
+import com.p1nero.dpr.skill.HealSkill;
 import com.p1nero.dpr.skill.ParryAndDodgeRewardSkill;
 import com.p1nero.dpr.skill.RewardSkill;
 import net.minecraft.resources.ResourceLocation;
@@ -95,42 +96,22 @@ public class DPRSkills {
                 .setMobEffectSupplier(() -> MobEffects.ABSORPTION)
                 .setEffectAmplifier(3)
                 .setEffectDuration(100));
-        HEAL1 = registryWorker.build("heal1", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
+        HEAL1 = registryWorker.build("heal1", HealSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114508"))
                 .setsKillTexture(ResourceLocation.withDefaultNamespace("textures/mob_effect/regeneration.png"))
-                .setWhenExecute((playerPatch -> {
-                    if(!playerPatch.isLogicalClient()){
-                        Player player = playerPatch.getOriginal();
-                        player.heal(2);
-                    }
-                })));
-        HEAL2 = registryWorker.build("heal2", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
+                );
+        HEAL2 = registryWorker.build("heal2", HealSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114509"))
                 .setsKillTexture(ResourceLocation.withDefaultNamespace("textures/mob_effect/regeneration.png"))
-                .setWhenExecute((playerPatch -> {
-                    if(!playerPatch.isLogicalClient()){
-                        Player player = playerPatch.getOriginal();
-                        player.heal(4);
-                    }
-                })));
-        HEAL3 = registryWorker.build("heal3", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
+                );
+        HEAL3 = registryWorker.build("heal3", HealSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114510"))
                 .setsKillTexture(ResourceLocation.withDefaultNamespace("textures/mob_effect/regeneration.png"))
-                .setWhenExecute((playerPatch -> {
-                    if(!playerPatch.isLogicalClient()){
-                        Player player = playerPatch.getOriginal();
-                        player.heal(6);
-                    }
-                })));
-        HEAL4 = registryWorker.build("heal4", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
+                );
+        HEAL4 = registryWorker.build("heal4", HealSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114511"))
                 .setsKillTexture(ResourceLocation.withDefaultNamespace("textures/mob_effect/regeneration.png"))
-                .setWhenExecute((playerPatch -> {
-                    if(!playerPatch.isLogicalClient()){
-                        Player player = playerPatch.getOriginal();
-                        player.heal(8);
-                    }
-                })));
+                );
         RESIST1 = registryWorker.build("resist1", ParryAndDodgeRewardSkill::new, RewardSkill.createParryRewardSkill()
                 .setUuid(UUID.fromString("fdc09ee8-fcfc-19eb-9a03-0242ac114512"))
                 .setMobEffectSupplier(() -> MobEffects.DAMAGE_RESISTANCE)
